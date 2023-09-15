@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1ac250adfb9ac96402fc8ed1bbd63307",
+    "content-hash": "c7fd9f3265123dd993f5ea5e7f8f846e",
     "packages": [
         {
             "name": "discord-php/http",
@@ -2323,9 +2323,13 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": [],
-    "prefer-stable": false,
+    "prefer-stable": true,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": ">=8.2",
+        "ext-mbstring": "*",
+        "ext-zip": "*"
+    },
     "platform-dev": [],
     "plugin-api-version": "2.6.0"
 }
