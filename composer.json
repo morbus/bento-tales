@@ -1,8 +1,10 @@
 {
     "require": {
         "php": ">=8.2",
+        "ext-json": "*",
         "ext-mbstring": "*",
         "ext-zip": "*",
+        "ext-zlib": "*",
         "team-reflex/discord-php": "^7.3"
     },
     "prefer-stable": true,
