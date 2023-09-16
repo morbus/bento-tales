@@ -3,6 +3,8 @@
 # Project-specific.                                                            #
 ################################################################################
 
+.php-cs-fixer.cache
+
 ################################################################################
 # Composer                                                                     #
 # https://github.com/github/gitignore/blob/main/Composer.gitignore             #

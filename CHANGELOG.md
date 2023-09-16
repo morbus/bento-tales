@@ -7,10 +7,11 @@ based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Scaffolding
 
+- Setup PHPMD and PHPStan in composer and PHPStorm.
 - Configure and commit .vscode directory.
 
 ## [0.0.1] - 2023-??-??
 
 ### Added
 
-- Git repository creation and scaffolding.
+- Git repository creation and language scaffolding.

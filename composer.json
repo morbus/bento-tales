@@ -7,8 +7,19 @@
         "ext-zlib": "*",
         "team-reflex/discord-php": "^7.3"
     },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.26"
+    },
     "prefer-stable": true,
     "config": {
         "sort-packages": true
+    },
+    "scripts": {
+        "cs:check": "vendor/bin/php-cs-fixer fix --verbose --dry-run",
+        "cs:fix": "vendor/bin/php-cs-fixer fix --verbose"
+    },
+    "scripts-descriptions": {
+        "cs:check": "Check coding standards",
+        "cs:fix": "Fix coding standards"
     }
 }
