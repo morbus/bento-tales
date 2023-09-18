@@ -15,10 +15,12 @@
         "sort-packages": true
     },
     "scripts": {
+        "bot:start": "php start.php",
         "cs:check": "vendor/bin/php-cs-fixer fix --verbose --dry-run",
         "cs:fix": "vendor/bin/php-cs-fixer fix --verbose"
     },
     "scripts-descriptions": {
+        "bot:start": "Start the Bento Tales bot",
         "cs:check": "Check coding standards",
         "cs:fix": "Fix coding standards"
     }
