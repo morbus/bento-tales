@@ -7,12 +7,9 @@ include __DIR__.'/vendor/autoload.php';
 use Discord\Discord;
 use Discord\Parts\Channel\Message;
 use Discord\WebSockets\Event;
-use Discord\WebSockets\Intents;
 
 $discord = new Discord([
     'token' => 'bot-token',
-    'intents' => Intents::getDefaultIntents(),
-    //      | Intents::MESSAGE_CONTENT, // Note: MESSAGE_CONTENT is privileged, see https://dis.gd/mcfaq
 ]);
 
 $discord->on('ready', function (Discord $discord) {
@@ -21,7 +18,6 @@ $discord->on('ready', function (Discord $discord) {
     // Listen for messages.
     $discord->on(Event::MESSAGE_CREATE, function (Message $message, Discord $discord) {
         echo "{$message->author->username}: {$message->content}", \PHP_EOL;
-        // Note: MESSAGE_CONTENT intent must be enabled to get the content if the bot is not mentioned/DMed.
     });
 });
 
