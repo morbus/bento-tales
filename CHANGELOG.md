@@ -7,7 +7,8 @@ based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Scaffolding
 
-- Setup PHPStan in composer and PHPStorm.
+- Begin work on the /awaken command.
+- Add basic database support with PDO.
 
 ## [0.0.1] - 2023-??-??
 
