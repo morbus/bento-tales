@@ -7,7 +7,6 @@ based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Scaffolding
 
-- Replace echos with logger usage.
 - Setup PHPMD and PHPStan in composer and PHPStorm.
 
 ## [0.0.1] - 2023-??-??

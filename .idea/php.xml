@@ -22,6 +22,8 @@
   </component>
   <component name="PhpIncludePathManager">
     <include_path>
+      <path value="$PROJECT_DIR$/vendor/bramus/ansi-php" />
+      <path value="$PROJECT_DIR$/vendor/bramus/monolog-colored-line-formatter" />
       <path value="$PROJECT_DIR$/vendor/composer" />
       <path value="$PROJECT_DIR$/vendor/discord-php/http" />
       <path value="$PROJECT_DIR$/vendor/discord/interactions" />

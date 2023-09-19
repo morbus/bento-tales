@@ -5,6 +5,7 @@
         "ext-mbstring": "*",
         "ext-zip": "*",
         "ext-zlib": "*",
+        "bramus/monolog-colored-line-formatter": "^3.1",
         "team-reflex/discord-php": "^7.3",
         "vlucas/phpdotenv": "^5.5"
     },
