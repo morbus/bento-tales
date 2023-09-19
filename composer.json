@@ -10,7 +10,8 @@
         "vlucas/phpdotenv": "^5.5"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.26"
+        "friendsofphp/php-cs-fixer": "^3.26",
+        "phpmd/phpmd": "^2.13"
     },
     "prefer-stable": true,
     "config": {
@@ -19,14 +20,21 @@
     "scripts": {
         "bot:start": [
             "Composer\\Config::disableProcessTimeout",
-            "php start.php"
+            "@php start.php"
+        ],
+        "check-code": [
+            "@cs:check",
+            "@phpmd"
         ],
         "cs:check": "vendor/bin/php-cs-fixer fix --verbose --dry-run",
-        "cs:fix": "vendor/bin/php-cs-fixer fix --verbose"
+        "cs:fix": "vendor/bin/php-cs-fixer fix --verbose",
+        "phpmd": "vendor/bin/phpmd . ansi cleancode,codesize,controversial,design,naming --exclude .idea/*,vendor/*"
     },
     "scripts-descriptions": {
         "bot:start": "Start the Bento Tales bot",
-        "cs:check": "Check coding standards",
-        "cs:fix": "Fix coding standards"
+        "check-code": "Check code with all tools",
+        "cs:check": "Check coding standards with PHP-CS-Fixer",
+        "cs:fix": "Fix coding standards with PHP-CS-Fixer",
+        "phpmd": "Check code with PHP Mess Detector"
     }
 }
