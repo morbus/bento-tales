@@ -23,22 +23,22 @@
             "Composer\\Config::disableProcessTimeout",
             "@php start.php"
         ],
-        "check-code": [
-            "@cs:check",
-            "@phpmd",
-            "@phpstan"
+        "qa:all": [
+            "@qa:cs-check",
+            "@qa:phpmd",
+            "@qa:phpstan"
         ],
-        "cs:check": "vendor/bin/php-cs-fixer fix --verbose --diff --dry-run",
-        "cs:fix": "vendor/bin/php-cs-fixer fix --verbose",
-        "phpmd": "vendor/bin/phpmd . ansi cleancode,codesize,controversial,design,naming --exclude .idea/*,vendor/*",
-        "phpstan": "vendor/bin/phpstan analyse --level 7 *.php src"
+        "qa:cs-check": "vendor/bin/php-cs-fixer fix --verbose --diff --dry-run",
+        "qa:cs-fix": "vendor/bin/php-cs-fixer fix --verbose",
+        "qa:phpmd": "vendor/bin/phpmd . ansi cleancode,codesize,controversial,design,naming --exclude .idea/*,vendor/*",
+        "qa:phpstan": "vendor/bin/phpstan analyse --level 7 *.php src"
     },
     "scripts-descriptions": {
         "bot:start": "Start the Bento Tales bot",
-        "check-code": "Check code with all tools",
-        "cs:check": "Check coding standards with PHP-CS-Fixer",
-        "cs:fix": "Fix coding standards with PHP-CS-Fixer",
-        "phpmd": "Check code with PHP Mess Detector",
-        "phpstan": "Check code with PHPStan"
+        "qa:all": "Check code with all available tools",
+        "qa:cs-check": "Check coding standards with PHP-CS-Fixer",
+        "qa:cs-fix": "Fix coding standards with PHP-CS-Fixer",
+        "qa:phpmd": "Check code with PHP Mess Detector",
+        "qa:phpstan": "Check code with PHPStan"
     }
 }
