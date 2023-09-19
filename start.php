@@ -8,8 +8,10 @@ use Discord\Discord;
 use Discord\Parts\Channel\Message;
 use Discord\WebSockets\Event;
 
+Dotenv\Dotenv::createImmutable(__DIR__)->load();
+
 $discord = new Discord([
-    'token' => 'bot-token',
+    'token' => $_ENV['BOT_TOKEN'],
 ]);
 
 $discord->on('ready', function (Discord $discord) {
