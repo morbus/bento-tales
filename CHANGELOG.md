@@ -9,6 +9,7 @@ based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 - Begin work on the /awaken command.
 - Add basic database support with PDO.
+- Add ext-uv for a more performant loop.
 
 ## [0.0.1] - 2023-??-??
 

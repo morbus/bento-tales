@@ -29,7 +29,7 @@ $discord = new Discord([
     'logger' => $logger,
 ]);
 
-$discord->on('ready', function (Discord $discord) {
+$discord->on('init', function (Discord $discord) {
     $discord->on(Event::MESSAGE_CREATE, function (Message $message, Discord $discord) {
         $discord->getLogger()->notice("{$message->author->username}: {$message->content}");
     });
