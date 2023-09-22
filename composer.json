@@ -19,6 +19,10 @@
         "sort-packages": true
     },
     "scripts": {
+        "bot:register": [
+            "Composer\\Config::disableProcessTimeout",
+            "@php register.php"
+        ],
         "bot:start": [
             "Composer\\Config::disableProcessTimeout",
             "@php start.php"
@@ -34,6 +38,7 @@
         "qa:phpstan": "vendor/bin/phpstan analyse --level 7 *.php src"
     },
     "scripts-descriptions": {
+        "bot:register": "Register the Bento Tales bot commands",
         "bot:start": "Start the Bento Tales bot",
         "qa:all": "Check code with all available tools",
         "qa:cs-check": "Check coding standards with PHP-CS-Fixer",
