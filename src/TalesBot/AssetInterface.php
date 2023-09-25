@@ -17,7 +17,7 @@ interface AssetInterface
      *
      * @return array{
      *   name: string,
-     *   description?: string,
+     *   description: string,
      * }
      */
     public function getInfo(): array;
