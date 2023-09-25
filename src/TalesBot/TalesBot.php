@@ -124,7 +124,7 @@ class TalesBot extends Discord
             foreach ($reflector->getAttributes() as $attribute) {
                 $attributeName = $attribute->getName();
                 if (isset($assetTypes[$attributeName])) {
-                    /** @var AssetInterface $asset */
+                    /** @var CommandInterface $asset */
                     $asset = new $class();
                     $assetName = $asset->getInfo()['name'];
                     $assetType = $assetTypes[$attributeName]['type'];
@@ -134,8 +134,8 @@ class TalesBot extends Discord
                     $this->{$assetProperty}[$assetName] = $asset;
                     $this->getLogger()->notice("Loaded $assetType '$assetName' from ".$file->getPathname());
 
-                    /** @var CommandInterface $asset */
-                    if ($attributeName === 'TalesBot\Attributes\Command') {
+                    // If the asset is a command, start listening.
+                    if ('TalesBot\Attributes\Command' === $attributeName) {
                         $this->getLogger()->notice("Listening for $assetType '$assetName' from ".$file->getPathname());
                         $this->listenCommand($assetName, $asset->handle(...), $asset->autocomplete(...));
                     }
