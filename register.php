@@ -19,54 +19,42 @@ declare(strict_types=1);
 
 include __DIR__.'/vendor/autoload.php';
 
-use Bramus\Monolog\Formatter\ColoredLineFormatter;
 use Discord\Builders\CommandBuilder;
-use Discord\Discord;
-use Monolog\Handler\StreamHandler;
-use Monolog\Level;
-use Monolog\Logger;
-
-// Run forever.
-set_time_limit(0);
+use TalesBot\TalesBot;
 
 // Load the .env file.
 Dotenv\Dotenv::createImmutable(__DIR__)->load();
 
-// Add ANSI color support to the logger.
-$logger = new Logger('BentoTales');
-$handler = new StreamHandler('php://stdout', Level::Debug);
-$handler->setFormatter(new ColoredLineFormatter());
-$logger->pushHandler($handler);
-
-$discord = new Discord([
+// Configure the bot.
+$bentoTales = new TalesBot([
     'token' => $_ENV['BOT_TOKEN'],
-    'logger' => $logger,
+    'loggerName' => 'BentoTales',
 ]);
 
-$discord->on('init', function (Discord $discord) {
-    $commands = [
-        ['name' => 'awaken', 'description' => 'Find an agreeable piece of ground and strive to strive.'],
-        ['name' => 'dream', 'description' => '@todo'],
-        ['name' => 'make', 'description' => '@todo'],
-        ['name' => 'view', 'description' => '@todo'],
-    ];
+// Load all game assets when the bot is ready.
+$bentoTales->on('init', static function (TalesBot $bentoTales) {
+    $bentoTales->loadAssetsIn([
+        './src',
+        './custom',
+    ]);
 
+    // Register commands.
     $pendingPromises = [];
-    foreach ($commands as $command) {
-        $pendingPromises[] = $discord->application->commands->save(
-            $discord->application->commands->create(
+    foreach ($bentoTales->commands as $command) {
+        $pendingPromises[] = $bentoTales->application->commands->save(
+            $bentoTales->application->commands->create(
                 CommandBuilder::new()
-                ->setName($command['name'])
-                ->setDescription($command['description'])
-                ->toArray()
+                    ->setName($command->getInfo()['name'])
+                    ->setDescription($command->getInfo()['description'])
+                    ->toArray()
             )
         );
     }
 
-    \React\Promise\all($pendingPromises)->then(function ($resolved) use ($discord) {
-        $discord->getLogger()->notice('Application commands have been registered.');
-        $discord->close();
+    \React\Promise\all($pendingPromises)->then(function ($resolved) use ($bentoTales) {
+        $bentoTales->getLogger()->notice('Application commands have been registered.');
+        $bentoTales->close();
     });
 });
 
-$discord->run();
+$bentoTales->run();
