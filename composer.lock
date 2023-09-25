@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8dc88a37631955020b84c34298cc2c63",
+    "content-hash": "a9364c074e09bb309e5b20b0ddccb53b",
     "packages": [
         {
             "name": "bramus/ansi-php",
@@ -3006,16 +3006,16 @@
         },
         {
             "name": "friendsofphp/php-cs-fixer",
-            "version": "v3.27.0",
+            "version": "v3.28.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "e73ccaae1208f017bb7860986eebb3da48bd25d6"
+                "reference": "113e09fea3d2306319ffaa2423fe3de768b28cff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/e73ccaae1208f017bb7860986eebb3da48bd25d6",
-                "reference": "e73ccaae1208f017bb7860986eebb3da48bd25d6",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/113e09fea3d2306319ffaa2423fe3de768b28cff",
+                "reference": "113e09fea3d2306319ffaa2423fe3de768b28cff",
                 "shasum": ""
             },
             "require": {
@@ -3089,7 +3089,7 @@
             ],
             "support": {
                 "issues": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/issues",
-                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.27.0"
+                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.28.0"
             },
             "funding": [
                 {
@@ -3097,20 +3097,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-09-17T14:37:54+00:00"
+            "time": "2023-09-22T20:43:40+00:00"
         },
         {
             "name": "pdepend/pdepend",
-            "version": "2.14.0",
+            "version": "2.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pdepend/pdepend.git",
-                "reference": "1121d4b04af06e33e9659bac3a6741b91cab1de1"
+                "reference": "0d4d8fb87aa74c358c1c4364514017f34b4a68b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pdepend/pdepend/zipball/1121d4b04af06e33e9659bac3a6741b91cab1de1",
-                "reference": "1121d4b04af06e33e9659bac3a6741b91cab1de1",
+                "url": "https://api.github.com/repos/pdepend/pdepend/zipball/0d4d8fb87aa74c358c1c4364514017f34b4a68b9",
+                "reference": "0d4d8fb87aa74c358c1c4364514017f34b4a68b9",
                 "shasum": ""
             },
             "require": {
@@ -3152,7 +3152,7 @@
             ],
             "support": {
                 "issues": "https://github.com/pdepend/pdepend/issues",
-                "source": "https://github.com/pdepend/pdepend/tree/2.14.0"
+                "source": "https://github.com/pdepend/pdepend/tree/2.15.0"
             },
             "funding": [
                 {
@@ -3160,7 +3160,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-26T13:15:18+00:00"
+            "time": "2023-09-22T02:30:39+00:00"
         },
         {
             "name": "phpmd/phpmd",
@@ -4627,6 +4627,7 @@
         "php": ">=8.2",
         "ext-json": "*",
         "ext-mbstring": "*",
+        "ext-pdo": "*",
         "ext-zip": "*",
         "ext-zlib": "*"
     },

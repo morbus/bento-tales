@@ -3,6 +3,7 @@
         "php": ">=8.2",
         "ext-json": "*",
         "ext-mbstring": "*",
+        "ext-pdo": "*",
         "ext-zip": "*",
         "ext-zlib": "*",
         "bramus/monolog-colored-line-formatter": "^3.1",
@@ -18,6 +19,11 @@
     "config": {
         "sort-packages": true
     },
+    "autoload": {
+        "psr-4": {
+            "TalesBot\\": "src/TalesBot/"
+        }
+    },
     "scripts": {
         "bot:register": [
             "Composer\\Config::disableProcessTimeout",
@@ -27,20 +33,20 @@
             "Composer\\Config::disableProcessTimeout",
             "@php start.php"
         ],
-        "qa:all": [
+        "qa": [
             "@qa:cs-check",
             "@qa:phpmd",
             "@qa:phpstan"
         ],
         "qa:cs-check": "vendor/bin/php-cs-fixer fix --verbose --diff --dry-run",
         "qa:cs-fix": "vendor/bin/php-cs-fixer fix --verbose",
-        "qa:phpmd": "vendor/bin/phpmd . ansi cleancode,codesize,controversial,design,naming --exclude .idea/*,vendor/*",
+        "qa:phpmd": "vendor/bin/phpmd . ansi phpmd.xml --exclude .idea/*,vendor/*",
         "qa:phpstan": "vendor/bin/phpstan analyse --level 7 *.php src"
     },
     "scripts-descriptions": {
         "bot:register": "Register the Bento Tales bot commands",
         "bot:start": "Start the Bento Tales bot",
-        "qa:all": "Check code with all available tools",
+        "qa": "Check code with all available tools",
         "qa:cs-check": "Check coding standards with PHP-CS-Fixer",
         "qa:cs-fix": "Fix coding standards with PHP-CS-Fixer",
         "qa:phpmd": "Check code with PHP Mess Detector",
