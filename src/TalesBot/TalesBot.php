@@ -115,7 +115,7 @@ class TalesBot extends Discord
         $finder = new Finder();
         $finder->files()->name('*.php')->in($dirs)->sortByName();
         foreach ($finder as $file) {
-            $this->logger->debug('Checking if '.$file->getPathname().' is a TalesBot asset');
+            $this->getLogger()->debug('Checking if '.$file->getPathname().' is a TalesBot asset');
             $class = str_replace($dirs, '', $file->getPathname());
             $class = str_replace(['/', '.php'], ['\\', ''], $class);
 
@@ -132,11 +132,11 @@ class TalesBot extends Discord
 
                     // Map all assets to a lookup property.
                     $this->{$assetProperty}[$assetName] = $asset;
-                    $this->logger->notice("Loaded $assetType '$assetName' from ".$file->getPathname());
+                    $this->getLogger()->notice("Loaded $assetType '$assetName' from ".$file->getPathname());
 
                     /** @var CommandInterface $asset */
                     if ($attributeName === 'TalesBot\Attributes\Command') {
-                        $this->logger->notice("Listening for $assetType '$assetName' from ".$file->getPathname());
+                        $this->getLogger()->notice("Listening for $assetType '$assetName' from ".$file->getPathname());
                         $this->listenCommand($assetName, $asset->handle(...), $asset->autocomplete(...));
                     }
                 }
