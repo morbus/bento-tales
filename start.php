@@ -5,6 +5,7 @@ declare(strict_types=1);
 include __DIR__.'/vendor/autoload.php';
 
 use TalesBot\TalesBot;
+use Discord\Parts\User\Activity;
 
 // Load the .env file.
 Dotenv\Dotenv::createImmutable(__DIR__)->load();
@@ -21,6 +22,11 @@ $bentoTales->on('init', static function (TalesBot $bentoTales) {
         './src',
         './custom',
     ]);
+
+    $bentoTales->updatePresence(new Activity($bentoTales, [
+        'type' => Activity::TYPE_WATCHING,
+        'name' => 'for /awaken',
+    ]));
 });
 
 // Run forever.
