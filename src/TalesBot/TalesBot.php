@@ -114,6 +114,7 @@ class TalesBot extends Discord
 
         $finder = new Finder();
         $finder->files()->name('*.php')->in($dirs)->sortByName();
+
         foreach ($finder as $file) {
             $this->getLogger()->debug('Checking if '.$file->getPathname().' is a TalesBot asset');
             $class = str_replace($dirs, '', $file->getPathname());

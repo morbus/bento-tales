@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 include __DIR__.'/vendor/autoload.php';
 
-use TalesBot\TalesBot;
 use Discord\Parts\User\Activity;
+use TalesBot\TalesBot;
 
 // Load the .env file.
 Dotenv\Dotenv::createImmutable(__DIR__)->load();

@@ -12,12 +12,7 @@ based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Begin work on the /view command.
 - Begin work on the /dream command.
 - Add basic database support with PDO.
-- Add ext-uv for a more performant loop.
-- Add ./custom to the repository? With a README? A gitkeep?
-  - Add docs on how to add multiple sources for game libraries.
-    - $bentoTales->loadAssetsIn(['./src', './custom', './contrib/repository-name']
-    - Supports Commands/Ping.php or NAMESPACE/Commands/Ping.php
-    - Without being added to the composer.json.
+- Add ext-uv for a more performant loop?
 - The intro should suggest you're retrying existing recipes with aplomb.
 
 ## [0.0.1] - 2023-??-??
