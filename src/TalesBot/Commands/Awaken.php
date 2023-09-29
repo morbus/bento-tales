@@ -53,7 +53,7 @@ class Awaken implements CommandInterface
         /** @var \TalesBot\TalesBot $talesBot */
         $talesBot = $interaction->getDiscord();
 
-        $embed = new Embed($interaction->getDiscord());
+        $embed = new Embed($talesBot);
         $embed
             ->setColor('#7F9D61')
             ->setTitle('The sun rises and heralds a new day')
