@@ -34,6 +34,11 @@ class TalesBot extends Discord
     public array $recipes = [];
 
     /**
+     * A class full of code just waiting to be refactored.
+     */
+    public Utilities $utilities;
+
+    /**
      * Creates a TalesBot client instance.
      *
      * - <multiple>: All options available on the Discord\Discord class.
@@ -66,6 +71,8 @@ class TalesBot extends Discord
             'dnsConfig',
             'cache',
         ]));
+
+        $this->utilities = new Utilities();
 
         parent::__construct($discordOptions);
     }

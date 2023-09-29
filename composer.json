@@ -41,7 +41,7 @@
         "qa:cs-check": "vendor/bin/php-cs-fixer fix --verbose --diff --dry-run",
         "qa:cs-fix": "vendor/bin/php-cs-fixer fix --verbose",
         "qa:phpmd": "vendor/bin/phpmd . ansi phpmd.xml --exclude .idea/*,vendor/*",
-        "qa:phpstan": "vendor/bin/phpstan analyse --level 7 *.php src"
+        "qa:phpstan": "vendor/bin/phpstan analyse --level 8 *.php src"
     },
     "scripts-descriptions": {
         "bot:register": "Register the Bento Tales bot commands",
