@@ -66,10 +66,10 @@ class Awaken implements CommandInterface
                 ')
                 ."\n\n".
                 $talesBot->utilities->oneLine('
-                    The sun continues its ascension and your first customers will be here soon. It is a morning like any other
-                    but, as you prep your assembly area, something feels... different. You are almost nervous with
-                    anticipation, as if *musha burui* (武者震い) has taken hold, as if you shake like a samurai before
-                    a great battle. Odd.
+                    The sun continues its ascension and your first customers will be here soon. It is a morning like
+                    any other but, as you prep your assembly area, something feels... different. You are almost nervous
+                    with anticipation, as if *musha burui* (武者震い) has taken hold, as if you shake like a samurai
+                    before a great battle. Odd.
                 ')
                 ."\n\n".
                 $talesBot->utilities->oneLine('
