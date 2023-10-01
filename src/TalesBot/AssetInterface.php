@@ -20,5 +20,5 @@ interface AssetInterface
      *   description: string,
      * }
      */
-    public function getInfo(): array;
+    public function getInfo(TalesBot $talesBot): array;
 }

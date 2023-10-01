@@ -19,7 +19,6 @@ declare(strict_types=1);
 
 include __DIR__.'/vendor/autoload.php';
 
-use Discord\Builders\CommandBuilder;
 use TalesBot\TalesBot;
 
 // Load the .env file.
@@ -43,14 +42,12 @@ $bentoTales->on('init', static function (TalesBot $bentoTales) {
     foreach ($bentoTales->commands as $command) {
         $pendingPromises[] = $bentoTales->application->commands->save(
             $bentoTales->application->commands->create(
-                CommandBuilder::new()
-                    ->setName($command->getInfo()['name'])
-                    ->setDescription($command->getInfo()['description'])
-                    ->toArray()
+                $command->getInfo($bentoTales)['commandBuilder']->toArray()
             )
         );
     }
 
+    // Wait until all registrations have completed.
     \React\Promise\all($pendingPromises)->then(function ($resolved) use ($bentoTales) {
         $bentoTales->getLogger()->notice('Application commands have been registered.');
         $bentoTales->close();

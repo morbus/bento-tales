@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace TalesBot\Commands;
 
+use Discord\Builders\CommandBuilder;
 use Discord\Builders\MessageBuilder;
 use Discord\Parts\Embed\Embed;
 use Discord\Parts\Interactions\Interaction;
 use TalesBot\Attributes\Command;
+use TalesBot\TalesBot;
 
 /**
  * Find an agreeable piece of ground and strive to strive.
@@ -21,13 +23,20 @@ class Awaken implements CommandInterface
 {
     /**
      * Return information about the command.
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function getInfo(): array
+    public function getInfo(TalesBot $talesBot): array
     {
-        return [
-            'name' => 'awaken',
-            'description' => 'Find an agreeable piece of ground and strive to strive.',
-        ];
+        $info = [];
+        $info['name'] = 'awaken';
+        $info['description'] = 'Find an agreeable piece of ground and strive to strive.';
+        $info['commandBuilder'] =
+            CommandBuilder::new()
+                ->setName($info['name'])
+                ->setDescription($info['description']);
+
+        return $info;
     }
 
     /**

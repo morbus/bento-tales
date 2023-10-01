@@ -134,7 +134,7 @@ class TalesBot extends Discord
                 if (isset($assetTypes[$attributeName])) {
                     /** @var CommandInterface $asset */
                     $asset = new $class();
-                    $assetName = $asset->getInfo()['name'];
+                    $assetName = $asset->getInfo($this)['name'];
                     $assetType = $assetTypes[$attributeName]['type'];
                     $assetProperty = $assetTypes[$attributeName]['property'];
 
