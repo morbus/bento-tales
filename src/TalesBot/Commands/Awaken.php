@@ -23,8 +23,6 @@ class Awaken implements CommandInterface
 {
     /**
      * Return information about the command.
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function getInfo(TalesBot $talesBot): array
     {
@@ -42,8 +40,9 @@ class Awaken implements CommandInterface
     /**
      * Return the command's autocomplete suggestions.
      */
-    public function autocomplete(Interaction $interaction): void
+    public function autocomplete(Interaction $interaction): array|null
     {
+        return null;
     }
 
     /**

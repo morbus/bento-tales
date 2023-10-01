@@ -30,8 +30,10 @@ interface CommandInterface extends AssetInterface
 
     /**
      * Return the command's autocomplete suggestions.
+     *
+     * @return \Discord\Parts\Interactions\Command\Choice[]|null
      */
-    public function autocomplete(Interaction $interaction): void;
+    public function autocomplete(Interaction $interaction): array|null;
 
     /**
      * Handle the command and optionally respond to the user.

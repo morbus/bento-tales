@@ -7,6 +7,7 @@ namespace TalesBot\Commands;
 use Discord\Builders\CommandBuilder;
 use Discord\Builders\MessageBuilder;
 use Discord\Parts\Embed\Embed;
+use Discord\Parts\Interactions\Command\Choice;
 use Discord\Parts\Interactions\Command\Option;
 use Discord\Parts\Interactions\Interaction;
 use TalesBot\Attributes\Command;
@@ -45,9 +46,14 @@ class Make implements CommandInterface
     /**
      * Return the command's autocomplete suggestions.
      */
-    public function autocomplete(Interaction $interaction): void
+    public function autocomplete(Interaction $interaction): array|null
     {
         $interaction->getDiscord()->getLogger()->warning('inside autocomplete');
+
+        return [
+            new Choice($interaction->getDiscord(), ['name' => 'Egg and Rice', 'value' => 'Egg and Rice']),
+            new Choice($interaction->getDiscord(), ['name' => 'Something Else', 'value' => 'Something Else']),
+        ];
     }
 
     /**
@@ -58,7 +64,7 @@ class Make implements CommandInterface
         /** @var \TalesBot\TalesBot $talesBot */
         $talesBot = $interaction->getDiscord();
 
-        $embed = new Embed($interaction->getDiscord());
+        $embed = new Embed($talesBot);
         $embed
             ->setColor('#F6CC6C')
             ->setTitle('@todo')
