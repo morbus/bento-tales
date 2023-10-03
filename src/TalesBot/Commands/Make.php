@@ -14,7 +14,7 @@ use TalesBot\Attributes\Command;
 use TalesBot\TalesBot;
 
 /**
- * @todo
+ * Make good food and hear good stories.
  */
 #[Command]
 class Make implements CommandInterface
@@ -48,11 +48,16 @@ class Make implements CommandInterface
      */
     public function autocomplete(Interaction $interaction): array|null
     {
-        // @todo
-        return [
-            new Choice($interaction->getDiscord(), ['name' => 'Egg and Rice', 'value' => 'Egg and Rice']),
-            new Choice($interaction->getDiscord(), ['name' => 'Something Else', 'value' => 'Something Else']),
-        ];
+        /** @var \TalesBot\TalesBot $talesBot */
+        $talesBot = $interaction->getDiscord();
+
+        $choices = [];
+        foreach ($talesBot->recipes as $recipe) {
+            $name = $recipe->getInfo($talesBot)['name'];
+            $choices[] = new Choice($talesBot, ['name' => $name, 'value' => $name]);
+        }
+
+        return $choices;
     }
 
     /**
