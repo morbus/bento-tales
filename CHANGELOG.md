@@ -7,13 +7,23 @@ based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Scaffolding
 
-- Begin work on the /awaken command.
-- Begin work on the /make command.
-- Begin work on the /view command.
-- Begin work on the /dream command.
 - Add basic database support with PDO.
-- Add ext-uv for a more performant loop?
-- The intro should suggest you're retrying existing recipes with aplomb.
+- Create a log of commands to examine for bugs?
+- When there's more than 25 autocomplete results, add substring searching.
+- We need some sort of lookup list that handles case-insensitive searching.
+- /awaken
+  - Check awaken level?
+  - Db: Create user record and state.
+  - Db: Set the next step of the tutorial.
+  - Db: Spit out when the next /awaken is.
+  - The intro should suggest you're retrying existing recipes with aplomb.
+- /make
+  - Create isUnlocked() interface for recipes.
+  - Create new User($guild, $user) and getRecipes().
+- /dream
+  - ???
+- /view
+  - ???
 
 ## [0.0.1] - 2023-??-??
 

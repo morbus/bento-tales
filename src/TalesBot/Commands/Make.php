@@ -26,7 +26,7 @@ class Make implements CommandInterface
     {
         $info = [];
         $info['name'] = 'make';
-        $info['description'] = '@todo';
+        $info['description'] = 'Make good food and hear good stories.';
         $info['commandBuilder'] =
             CommandBuilder::new()
                 ->setName($info['name'])
@@ -34,7 +34,7 @@ class Make implements CommandInterface
                 ->addOption(
                     (new Option($talesBot))
                         ->setName('recipe')
-                        ->setDescription('The recipe to make')
+                        ->setDescription('The recipe to prepare')
                         ->setType(Option::STRING)
                         ->setAutoComplete(true)
                         ->setRequired(true)
@@ -48,8 +48,7 @@ class Make implements CommandInterface
      */
     public function autocomplete(Interaction $interaction): array|null
     {
-        $interaction->getDiscord()->getLogger()->warning('inside autocomplete');
-
+        // @todo
         return [
             new Choice($interaction->getDiscord(), ['name' => 'Egg and Rice', 'value' => 'Egg and Rice']),
             new Choice($interaction->getDiscord(), ['name' => 'Something Else', 'value' => 'Something Else']),
@@ -64,10 +63,16 @@ class Make implements CommandInterface
         /** @var \TalesBot\TalesBot $talesBot */
         $talesBot = $interaction->getDiscord();
 
+        $value = '';
+        if (isset($interaction->data->options['recipe'])) {
+            $value = $interaction->data->options['recipe']['value'];
+        }
+
         $embed = new Embed($talesBot);
         $embed
             ->setColor('#F6CC6C')
             ->setTitle('@todo')
+            ->setDescription('got recipe '.$value)
         ;
 
         $interaction->respondWithMessage(MessageBuilder::new()->addEmbed($embed));

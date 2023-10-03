@@ -14,10 +14,10 @@ use TalesBot\TalesBot;
 interface CommandInterface extends AssetInterface
 {
     /**
-     * Return information about the asset.
+     * Return information about the command.
      *
-     * - name: The name of the asset.
-     * - description: The description of the asset.
+     * - name: The name of the command.
+     * - description: The description of the command.
      * - commandBuilder: A CommandBuilder class to register.
      *
      * @return array{

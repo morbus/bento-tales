@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
-namespace TalesBot\Recipes;
+namespace TalesBot\Recipes\E;
 
 use TalesBot\Attributes\Recipe;
+use TalesBot\Recipes\RecipeInterface;
+use TalesBot\TalesBot;
 
 /**
- * The simplest of bento recipes: egg on top of rice.
+ * The simplest of recipes: egg and rice.
  */
 #[Recipe]
 class EggAndRice implements RecipeInterface
@@ -15,7 +17,7 @@ class EggAndRice implements RecipeInterface
     /**
      * Return information about the recipe.
      */
-    public function getInfo(): array
+    public function getInfo(TalesBot $talesBot): array
     {
         return [
             'name' => 'Egg and Rice',
