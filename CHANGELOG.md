@@ -30,9 +30,13 @@ based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - /view
   - ???
 
-## [0.0.1] - 2023-??-??
+## [0.2.0] - 2025-??-??
+
+
+## [0.1.0] - 2025-03-05
 
 ### Added
 
+- Very dumb first attempts at /awaken and /make.
 - Class-ifying and drop-in autoloading of assets.
 - Git repository creation and language scaffolding.

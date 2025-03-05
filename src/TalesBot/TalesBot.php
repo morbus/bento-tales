@@ -54,7 +54,7 @@ class TalesBot extends Discord
         $options['loggerName'] = $options['loggerName'] ?? 'TalesBot';
         $options['logger'] = $options['logger'] ?? $this->createColoredLogger($options['loggerName']);
 
-        // Last updated 2023-09-23.
+        // Last checked 2025-03-05.
         // @see Discord\Discord::resolveOptions()
         $discordOptions = array_intersect_key($options, array_flip([
             'token',
