@@ -40,7 +40,7 @@ class Awaken implements CommandInterface
     /**
      * Return the command's autocomplete suggestions.
      */
-    public function autocomplete(Interaction $interaction): array|null
+    public function autocomplete(Interaction $interaction): ?array
     {
         return null;
     }
@@ -58,7 +58,7 @@ class Awaken implements CommandInterface
      */
     public function newGame(Interaction $interaction): void
     {
-        /** @var \TalesBot\TalesBot $talesBot */
+        /** @var TalesBot $talesBot */
         $talesBot = $interaction->getDiscord();
 
         $embed = new Embed($talesBot);

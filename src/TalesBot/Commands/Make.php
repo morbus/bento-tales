@@ -46,9 +46,9 @@ class Make implements CommandInterface
     /**
      * Return the command's autocomplete suggestions.
      */
-    public function autocomplete(Interaction $interaction): array|null
+    public function autocomplete(Interaction $interaction): ?array
     {
-        /** @var \TalesBot\TalesBot $talesBot */
+        /** @var TalesBot $talesBot */
         $talesBot = $interaction->getDiscord();
 
         $choices = [];
@@ -65,7 +65,7 @@ class Make implements CommandInterface
      */
     public function handle(Interaction $interaction): void
     {
-        /** @var \TalesBot\TalesBot $talesBot */
+        /** @var TalesBot $talesBot */
         $talesBot = $interaction->getDiscord();
 
         $value = '';

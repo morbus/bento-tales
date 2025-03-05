@@ -82,7 +82,7 @@ class TalesBot extends Discord
      *
      * @param string $name A simple descriptive name that is attached to all log records
      *
-     * @return \Monolog\Logger A colored Monolog log channel to stdout
+     * @return Logger A colored Monolog log channel to stdout
      */
     private function createColoredLogger(string $name = ''): Logger
     {
@@ -98,8 +98,6 @@ class TalesBot extends Discord
      * Find and load asset classes.
      *
      * @param string|string[] $dirs A directory path or an array of directories
-     *
-     * @throws \ReflectionException
      */
     public function loadAssetsIn(string|array $dirs): void
     {
