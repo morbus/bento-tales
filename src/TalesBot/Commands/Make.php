@@ -69,6 +69,10 @@ class Make implements CommandInterface
         $talesBot = $interaction->getDiscord();
 
         $value = '';
+        // @var \Discord\Helpers\CollectionInterface $options
+        // $options = $interaction->data->options;
+        // $option = $options->pull('recipe');
+        // $value = $option->value;
         if (isset($interaction->data->options['recipe'])) {
             $value = $interaction->data->options['recipe']['value'];
         }

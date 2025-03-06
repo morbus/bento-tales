@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace TalesBot;
 
 /**
- * A class to be eyeballed with much suspicion for refactoring.
+ * Provides code to be eyeballed with suspicion for refactoring.
  */
-final class Utilities
+class Utilities
 {
     /**
      * Turn a multiline indented string into a normal lookin' one-liner.

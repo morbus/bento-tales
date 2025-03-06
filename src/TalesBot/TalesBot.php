@@ -34,7 +34,12 @@ class TalesBot extends Discord
     public array $recipes = [];
 
     /**
-     * A class full of code just waiting to be refactored.
+     * Provides access to the database system.
+     */
+    public Database $database;
+
+    /**
+     * Provides various helper functions.
      */
     public Utilities $utilities;
 
@@ -42,7 +47,8 @@ class TalesBot extends Discord
      * Creates a TalesBot client instance.
      *
      * - <multiple>: All options available on the Discord\Discord class.
-     * - loggerName: A simple descriptive name that is attached to all log records
+     * - databaseDsn: A data source name pointing to the database.
+     * - loggerName: A simple descriptive name attached to all log records.
      *
      * @param array<string, mixed> $options An array of options for this instance
      *
@@ -50,12 +56,14 @@ class TalesBot extends Discord
      */
     public function __construct(array $options = [])
     {
-        // Defaults.
-        $options['loggerName'] = $options['loggerName'] ?? 'TalesBot';
-        $options['logger'] = $options['logger'] ?? $this->createColoredLogger($options['loggerName']);
+        $this->database = new Database(['databaseDsn' => $options['databaseDsn']]);
+        $this->utilities = new Utilities();
 
+        // Defaults.
         // Last checked 2025-03-05.
         // @see Discord\Discord::resolveOptions()
+        $options['loggerName'] = $options['loggerName'] ?? 'TalesBot';
+        $options['logger'] = $options['logger'] ?? $this->createColoredLogger($options['loggerName']);
         $discordOptions = array_intersect_key($options, array_flip([
             'token',
             'shardId',
@@ -71,8 +79,6 @@ class TalesBot extends Discord
             'dnsConfig',
             'cache',
         ]));
-
-        $this->utilities = new Utilities();
 
         parent::__construct($discordOptions);
     }

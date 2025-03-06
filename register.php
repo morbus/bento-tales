@@ -26,8 +26,9 @@ Dotenv\Dotenv::createImmutable(__DIR__)->load();
 
 // Configure the bot.
 $bentoTales = new TalesBot([
-    'token' => $_ENV['BOT_TOKEN'],
+    'databaseDsn' => $_ENV['BOT_DATABASE_DSN'],
     'loggerName' => 'BentoTales',
+    'token' => $_ENV['BOT_TOKEN'],
 ]);
 
 // Load all game assets when the bot is ready.

@@ -7,6 +7,11 @@ based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Scaffolding
 
+- Move from custom hooks to event listeners and promises?
+- Move Commands/Awaken.php into Commands/Awaken/Awaken.php, and move media there too?
+  - This will screw up our loadAssetsIn(), but makes each thing feel more addon-ish.
+  - We'd also want to do the same for Recipes and Visitors and all other assets?
+- Create a Patrons class for our visitors. Or... Visitors? Mmm. Something else.
 - Add basic database support with PDO.
 - Create a log of commands to examine for bugs?
 - We need some sort of lookup list that handles case-insensitive searching.
