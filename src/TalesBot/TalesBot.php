@@ -46,9 +46,9 @@ class TalesBot extends Discord
     /**
      * Creates a TalesBot client instance.
      *
-     * - <multiple>: All options available on the Discord\Discord class.
-     * - databaseDsn: A data source name pointing to the database.
-     * - loggerName: A simple descriptive name attached to all log records.
+     * - <multiple>: All options available on the Discord\Discord class
+     * - databaseDsn: A data source name pointing to the database
+     * - loggerName: A simple descriptive name attached to all log records
      *
      * @param array<string, mixed> $options An array of options for this instance
      *
@@ -86,7 +86,7 @@ class TalesBot extends Discord
     /**
      * Create a colored Monolog log channel to stdout.
      *
-     * @param string $name A simple descriptive name that is attached to all log records
+     * @param string $name A descriptive name attached to all log records
      *
      * @return Logger A colored Monolog log channel to stdout
      */
@@ -101,9 +101,38 @@ class TalesBot extends Discord
     }
 
     /**
+     * Return a list of asset types, keyed by attribute class.
+     *
+     *  - attribute: The attribute class the asset type must use
+     *  - type: A singular label that describes the asset type
+     *  - property: The property where the asset types is stored
+     *
+     * @return array<string, array{
+     *   attribute: string,
+     *   type: string,
+     *   property: string,
+     *  }>
+     */
+    public function getAssetTypes(): array
+    {
+        return [
+            'TalesBot\Attributes\Command' => [
+                'attribute' => 'TalesBot\Attributes\Command',
+                'type' => 'command',
+                'property' => 'commands',
+            ],
+            'TalesBot\Attributes\Recipe' => [
+                'attribute' => 'TalesBot\Attributes\Recipe',
+                'type' => 'recipe',
+                'property' => 'recipes',
+            ],
+        ];
+    }
+
+    /**
      * Find and load asset classes.
      *
-     * @param string|string[] $dirs A directory path or an array of directories
+     * @param string|string[] $dirs A directory or array of directories
      */
     public function loadAssetsIn(string|array $dirs): void
     {
@@ -112,20 +141,11 @@ class TalesBot extends Discord
         $loader->addPsr4('', $dirs);
         $loader->register();
 
-        $assetTypes = [
-            'TalesBot\Attributes\Command' => [
-                'type' => 'command',
-                'property' => 'commands',
-            ],
-            'TalesBot\Attributes\Recipe' => [
-                'type' => 'recipe',
-                'property' => 'recipes',
-            ],
-        ];
+        // Load info about our asset types.
+        $assetTypes = $this->getAssetTypes();
 
         $finder = new Finder();
         $finder->files()->name('*.php')->in($dirs)->sortByName();
-
         foreach ($finder as $file) {
             $this->getLogger()->debug('Checking if '.$file->getPathname().' is a TalesBot asset');
             $class = str_replace($dirs, '', $file->getPathname());

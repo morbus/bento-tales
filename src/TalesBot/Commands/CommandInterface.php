@@ -16,9 +16,9 @@ interface CommandInterface extends AssetInterface
     /**
      * Return information about the command.
      *
-     * - name: The name of the command.
-     * - description: The description of the command.
-     * - commandBuilder: A CommandBuilder class to register.
+     * - name: The name of the command
+     * - description: The description of the command
+     * - commandBuilder: A CommandBuilder class to register
      *
      * @return array{
      *   name: string,

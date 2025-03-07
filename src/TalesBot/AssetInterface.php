@@ -12,8 +12,8 @@ interface AssetInterface
     /**
      * Return information about the asset.
      *
-     * - name: The name of the asset.
-     * - description: The description of the asset.
+     * - name: The name of the asset
+     * - description: The description of the asset
      *
      * @return array{
      *   name: string,

@@ -12,7 +12,7 @@ class Database
     /**
      * Creates a database connection.
      *
-     *  - databaseDsn: A data source name pointing to the TalesBot database.
+     *  - databaseDsn: A data source name pointing to the TalesBot database
      *
      * @param array<string, mixed> $options An array of options for this instance
      */

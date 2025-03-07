@@ -8,14 +8,11 @@ based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Scaffolding
 
 - Move from custom hooks to event listeners and promises?
-- Move Commands/Awaken.php into Commands/Awaken/Awaken.php, and move media there too?
-  - This will screw up our loadAssetsIn(), but makes each thing feel more addon-ish.
-  - We'd also want to do the same for Recipes and Visitors and all other assets?
-- Create a Patrons class for our visitors. Or... Visitors? Mmm. Something else.
+  - Call $this->emit on the Discord instance to issue events.
+  - But how would we get code in, say, a Command to listen to them?
+- Create a Character class for our visitors.
 - Add basic database support with PDO.
-- Create a log of commands to examine for bugs?
 - We need some sort of lookup list that handles case-insensitive searching.
-- Should we move the tutorial stuff into a single class for ease-of-finding?
 - /awaken
   - Db: Create user record and state.
   - Db: Set the next step of the tutorial.
@@ -37,6 +34,16 @@ based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [0.2.0] - 2025-??-??
 
+### Added
+
+### Changed
+
+- Each individual command and recipe are now stored in their own directories.
+  This allows that directory to include other related classes and media, and
+  more adequately promotes the idea of packages/addons that can be dropped in
+  as a one-location-whole instead of spread throughout the codebase. For example,
+  instead of `Commands/Awaken.php` and `media/awaken/*.svg`, it's now
+  `Commands/Awaken/Awaken.php` and `Commands/Awaken/media/*.svg`.
 
 ## [0.1.0] - 2025-03-05
 

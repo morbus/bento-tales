@@ -41,14 +41,17 @@ as if they're "custom mods" to the TalesBot framework. To get started, either
 add your asset classes in `./custom`, or specify your own (and/or additional)
 directories by adding them to the `loadAssetsIn()` array in `start.php`.
 You'll need to make sure the class `namespace` maps to the directory structure,
-otherwise Talesbot will be unable to load your asset properly.
+and that each asset class uses one of the following asset Attributes:
+
+* `#[Command]`
+* `#[Recipe]`
 
 Here's an example of how you'd organize and namespace custom assets:
 
-| Location                                           | Namespace                                        |
-|----------------------------------------------------|--------------------------------------------------|
-| `custom/Commands/Example1.php`                     | `namespace Commands`                             |
-| `custom/MyMod/Commands/Example2.php`               | `namespace MyMod\Commands`                       |
-| `contrib/theirRepo/theirMod/Commands/Example3.php` | `namespace theirMod\Commands` ***<sup>1</sup>*** |
+| Location                                                    | Namespace                                                 |
+|-------------------------------------------------------------|-----------------------------------------------------------|
+| `custom/Commands/Example1/Example1.php`                     | `namespace Commands\Example1`                             |
+| `custom/MyMod/Recipes/Example2/Example2.php`                | `namespace MyMod\Recipes\Example2`                        |
+| `contrib/theirRepo/theirMod/Commands/Example3/Example3.php` | `namespace theirMod\Commands\Example3` ***<sup>1</sup>*** |
 
 <sup>1</sup> Only possible if you pass `contrib/theirRepo` to `loadAssetsIn()`.

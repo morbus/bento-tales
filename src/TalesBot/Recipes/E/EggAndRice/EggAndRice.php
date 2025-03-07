@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TalesBot\Recipes\E;
+namespace TalesBot\Recipes\E\EggAndRice;
 
 use TalesBot\Attributes\Recipe;
 use TalesBot\Recipes\RecipeInterface;

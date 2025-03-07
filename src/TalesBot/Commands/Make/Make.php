@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TalesBot\Commands;
+namespace TalesBot\Commands\Make;
 
 use Discord\Builders\CommandBuilder;
 use Discord\Builders\MessageBuilder;
@@ -11,6 +11,7 @@ use Discord\Parts\Interactions\Command\Choice;
 use Discord\Parts\Interactions\Command\Option;
 use Discord\Parts\Interactions\Interaction;
 use TalesBot\Attributes\Command;
+use TalesBot\Commands\CommandInterface;
 use TalesBot\TalesBot;
 
 /**

@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace TalesBot\Commands;
+namespace TalesBot\Commands\Awaken;
 
 use Discord\Builders\CommandBuilder;
 use Discord\Builders\MessageBuilder;
 use Discord\Parts\Embed\Embed;
 use Discord\Parts\Interactions\Interaction;
 use TalesBot\Attributes\Command;
+use TalesBot\Commands\CommandInterface;
 use TalesBot\TalesBot;
 
 /**
@@ -65,7 +66,7 @@ class Awaken implements CommandInterface
         $embed
             ->setColor('#7F9D61')
             ->setTitle('The sun rises and heralds a new day')
-            ->setThumbnail('https://github.com/morbus/bento-tales/raw/main/media/awaken/awaken--lorc--sunrise.png')
+            ->setThumbnail('https://github.com/morbus/bento-tales/raw/main/src/TalesBot/Commands/Awaken/media/awaken--lorc--sunrise.png')
             ->setDescription(
                 $talesBot->utilities->oneLine('
                     100 days... 1,000 days... 10,000 days and 800 more... For nearly 30 years, you\'ve worked at your
