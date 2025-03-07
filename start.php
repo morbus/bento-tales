@@ -21,6 +21,7 @@ $bentoTales = new TalesBot([
 $bentoTales->on('init', static function (TalesBot $bentoTales) {
     $bentoTales->loadAssetsIn([
         './src',
+        './contrib',
         './custom',
     ]);
 
