@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TalesBot\Recipes;
-
-use TalesBot\AssetInterface;
+namespace TalesBot;
 
 /**
  * The interface all recipes must implement.

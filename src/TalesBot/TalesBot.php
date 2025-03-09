@@ -4,15 +4,10 @@ declare(strict_types=1);
 
 namespace TalesBot;
 
-use Bramus\Monolog\Formatter\ColoredLineFormatter;
-use Composer\Autoload\ClassLoader;
 use Discord\Discord;
-use Monolog\Handler\StreamHandler;
-use Monolog\Level;
-use Monolog\Logger;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Component\Finder\Finder;
-use TalesBot\Commands\CommandInterface;
-use TalesBot\Recipes\RecipeInterface;
 
 /**
  * The TalesBot implementation of the Discord client class.
@@ -20,50 +15,43 @@ use TalesBot\Recipes\RecipeInterface;
 class TalesBot extends Discord
 {
     /**
-     * An array of loaded commands.
+     * Directories where addons are located.
      *
-     * @var array<array-key, CommandInterface>
+     * @var string[]
      */
-    public array $commands = [];
+    public array $addonDirs = [];
 
     /**
-     * An array of loaded recipes.
+     * Loaded assets sorted by their attribute.
      *
-     * @var array<array-key, RecipeInterface>
+     * @var array<0|class-string, array<0|class-string, ?object>>
      */
-    public array $recipes = [];
+    public array $assets = [];
 
     /**
-     * Provides access to the database system.
+     * The Doctrine ORM entity manager.
      */
-    public Database $database;
-
-    /**
-     * Provides various helper functions.
-     */
-    public Utilities $utilities;
+    public EntityManagerInterface $entityManager;
 
     /**
      * Creates a TalesBot client instance.
      *
      * - <multiple>: All options available on the Discord\Discord class
-     * - databaseDsn: A data source name pointing to the database
-     * - loggerName: A simple descriptive name attached to all log records
+     * - addonDirs: An array of directories where addons are located
+     * - doctrine: The configured Doctrine ORM entity manager.
      *
-     * @param array<string, mixed> $options An array of options for this instance
+     * @param array<string, mixed> $options An array of options
      *
      * @throws \Discord\Exceptions\IntentException
      */
     public function __construct(array $options = [])
     {
-        $this->database = new Database(['databaseDsn' => $options['databaseDsn']]);
-        $this->utilities = new Utilities();
+        $this->addonDirs = $options['addonDirs'] ?? [];
+        $this->entityManager = $options['doctrine'];
 
         // Defaults.
         // Last checked 2025-03-05.
         // @see Discord\Discord::resolveOptions()
-        $options['loggerName'] = $options['loggerName'] ?? 'TalesBot';
-        $options['logger'] = $options['logger'] ?? $this->createColoredLogger($options['loggerName']);
         $discordOptions = array_intersect_key($options, array_flip([
             'token',
             'shardId',
@@ -84,95 +72,94 @@ class TalesBot extends Discord
     }
 
     /**
-     * Create a colored Monolog log channel to stdout.
+     * Find asset classes in addon directories and store in $this->assets.
      *
-     * @param string $name A descriptive name attached to all log records
-     *
-     * @return Logger A colored Monolog log channel to stdout
+     * @param class-string[] $attributes A list of attributes to find assets of
      */
-    private function createColoredLogger(string $name = ''): Logger
+    public function findAssets(array $attributes = []): void
     {
-        $logger = new Logger($name);
-        $handler = new StreamHandler('php://stdout', Level::Debug);
-        $handler->setFormatter(new ColoredLineFormatter());
-        $logger->pushHandler($handler);
-
-        return $logger;
-    }
-
-    /**
-     * Return a list of asset types, keyed by attribute class.
-     *
-     *  - attribute: The attribute class the asset type must use
-     *  - type: A singular label that describes the asset type
-     *  - property: The property where the asset types is stored
-     *
-     * @return array<string, array{
-     *   attribute: string,
-     *   type: string,
-     *   property: string,
-     *  }>
-     */
-    public function getAssetTypes(): array
-    {
-        return [
-            'TalesBot\Attributes\Command' => [
-                'attribute' => 'TalesBot\Attributes\Command',
-                'type' => 'command',
-                'property' => 'commands',
-            ],
-            'TalesBot\Attributes\Recipe' => [
-                'attribute' => 'TalesBot\Attributes\Recipe',
-                'type' => 'recipe',
-                'property' => 'recipes',
-            ],
+        // Default TalesBot attributes.
+        $attributes = $attributes ?: [
+            'TalesBot\Attributes\Command',
+            'TalesBot\Attributes\Entity',
+            'TalesBot\Attributes\Recipe',
         ];
-    }
 
-    /**
-     * Find and load asset classes.
-     *
-     * @param string|string[] $dirs A directory or array of directories
-     */
-    public function loadAssetsIn(string|array $dirs): void
-    {
-        // Autoload asset namespaces.
-        $loader = new ClassLoader();
-        $loader->addPsr4('', $dirs);
-        $loader->register();
-
-        // Load info about our asset types.
-        $assetTypes = $this->getAssetTypes();
-
+        // Search addon dirs.
         $finder = new Finder();
-        $finder->files()->name('*.php')->in($dirs)->sortByName();
+        $finder->files()->name('*.php')->in($this->addonDirs)->sortByName();
+
+        // Turn addon files into a class name, then check the attributes.
+        // If a class uses the desired attributes, store it in $this->assets.
         foreach ($finder as $file) {
-            $this->getLogger()->debug('Checking if '.$file->getPathname().' is a TalesBot asset');
-            $class = str_replace($dirs, '', $file->getPathname());
-            $class = str_replace(['/', '.php'], ['\\', ''], $class);
+            $this->getLogger()->debug('Checking if '.$file->getPathname().' is a requested TalesBot asset');
+            $assetClass = str_replace($this->addonDirs, '', $file->getPathname());
+            $assetClass = str_replace(['/', '.php'], ['\\', ''], $assetClass);
 
-            /** @var class-string $class */
-            $reflector = new \ReflectionClass($class);
-            foreach ($reflector->getAttributes() as $attribute) {
-                $attributeName = $attribute->getName();
-                if (isset($assetTypes[$attributeName])) {
-                    /** @var CommandInterface $asset */
-                    $asset = new $class();
-                    $assetName = $asset->getInfo($this)['name'];
-                    $assetType = $assetTypes[$attributeName]['type'];
-                    $assetProperty = $assetTypes[$attributeName]['property'];
-
-                    // Map all assets to a lookup property.
-                    $this->{$assetProperty}[$assetName] = $asset;
-                    $this->getLogger()->notice("Loaded $assetType '$assetName' from ".$file->getPathname());
-
-                    // If the asset is a command, start listening.
-                    if ('TalesBot\Attributes\Command' === $attributeName) {
-                        $this->getLogger()->notice("Listening for $assetType '$assetName' from ".$file->getPathname());
-                        $this->listenCommand($assetName, $asset->handle(...), $asset->autocomplete(...));
-                    }
+            /** @var class-string $assetClass */
+            $reflector = new \ReflectionClass($assetClass);
+            $assetAttributes = $reflector->getAttributes();
+            foreach ($assetAttributes as $assetAttribute) {
+                if (\in_array($assetAttribute->getName(), $attributes, true)) {
+                    $this->getLogger()->info($file->getPathname().' uses attribute '.$assetAttribute->getName());
+                    $this->assets[$assetAttribute->getName()][$assetClass] = null;
                 }
             }
+        }
+    }
+
+    /**
+     * Find and load assets in our addon directories.
+     */
+    public function loadAddons(): void
+    {
+        $this->findAssets();
+        $this->loadCommandAssets();
+        $this->loadEntityAssets();
+        $this->loadRecipeAssets();
+    }
+
+    /**
+     * Load command assets and listen for their activation.
+     */
+    public function loadCommandAssets(): void
+    {
+        foreach (array_keys($this->assets['TalesBot\Attributes\Command']) as $commandClass) {
+            $this->assets['TalesBot\Attributes\Command'][$commandClass] = new $commandClass();
+            $command = $this->assets['TalesBot\Attributes\Command'][$commandClass];
+
+            // Listen for users activating this command.
+            $commandBuilder = $command->getCommandBuilder($this)->toArray();
+            $this->listenCommand($commandBuilder['name'], $command->handle(...), $command->autocomplete(...));
+            $this->getLogger()->notice('Loaded command /'.$commandBuilder['name'].' from '.$commandClass);
+        }
+    }
+
+    /**
+     * Load entity assets and maintain their database schema.
+     */
+    public function loadEntityAssets(): void
+    {
+        foreach (array_keys($this->assets['TalesBot\Attributes\Entity']) as $entityClass) {
+            $this->assets['TalesBot\Attributes\Entity'][$entityClass] = new $entityClass();
+            $this->getLogger()->notice('Loaded entity from '.$entityClass);
+        }
+
+        // Update the database with any schema changes.
+        $schemaTool = new SchemaTool($this->entityManager);
+        $classes = $this->entityManager->getMetadataFactory()->getAllMetadata();
+        $schemaTool->updateSchema($classes);
+    }
+
+    /**
+     * Load recipe assets.
+     */
+    public function loadRecipeAssets(): void
+    {
+        // Recipes are mostly just informational and have no logic.
+        foreach (array_keys($this->assets['TalesBot\Attributes\Recipe']) as $recipeClass) {
+            $this->assets['TalesBot\Attributes\Recipe'][$recipeClass] = new $recipeClass();
+            $this->getLogger()->notice('Loaded recipe from '.$recipeClass);
         }
     }
 }

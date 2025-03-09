@@ -1,0 +1,40 @@
+#!/usr/bin/env php
+<?php
+
+/**
+ * @file
+ * Set up the Doctrine Console.
+ *
+ * @see https://www.doctrine-project.org/projects/doctrine-orm/en/3.3/reference/tools.html
+ */
+
+declare(strict_types=1);
+
+include __DIR__.'/../vendor/autoload.php';
+
+use Doctrine\DBAL\DriverManager;
+use Doctrine\DBAL\Tools\DsnParser;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\ORMSetup;
+use Doctrine\ORM\Tools\Console\ConsoleRunner;
+use Doctrine\ORM\Tools\Console\EntityManagerProvider\SingleManagerProvider;
+
+// Load the .env file.
+Dotenv\Dotenv::createImmutable(__DIR__.'/..')->load();
+
+// Addons.
+$addonDirs = [
+    __DIR__.'/../src',
+    __DIR__.'/../contrib',
+    __DIR__.'/../custom',
+];
+
+
+// Setup the Doctrine ORM.
+$dsnParser = new DsnParser();
+$dsnParsed = $dsnParser->parse($_ENV['BOT_DATABASE_DSN']);
+$config = ORMSetup::createAttributeMetadataConfiguration(paths: $addonDirs);
+$connection = DriverManager::getConnection($dsnParsed, $config);
+$entityManager = new EntityManager($connection, $config);
+
+ConsoleRunner::run(new SingleManagerProvider($entityManager));

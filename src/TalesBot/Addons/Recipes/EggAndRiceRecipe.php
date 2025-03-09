@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace TalesBot\Recipes\E\EggAndRice;
+namespace TalesBot\Addons\Recipes;
 
 use TalesBot\Attributes\Recipe;
-use TalesBot\Recipes\RecipeInterface;
+use TalesBot\RecipeInterface;
 use TalesBot\TalesBot;
 
 /**
  * The simplest of recipes: egg and rice.
  */
 #[Recipe]
-class EggAndRice implements RecipeInterface
+class EggAndRiceRecipe implements RecipeInterface
 {
     /**
      * Return information about the recipe.

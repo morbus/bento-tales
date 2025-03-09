@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TalesBot\Commands\Make;
+namespace TalesBot\Addons\Make;
 
 use Discord\Builders\CommandBuilder;
 use Discord\Builders\MessageBuilder;
@@ -11,52 +11,41 @@ use Discord\Parts\Interactions\Command\Choice;
 use Discord\Parts\Interactions\Command\Option;
 use Discord\Parts\Interactions\Interaction;
 use TalesBot\Attributes\Command;
-use TalesBot\Commands\CommandInterface;
+use TalesBot\CommandInterface;
 use TalesBot\TalesBot;
 
 /**
  * Make good food and hear good stories.
  */
 #[Command]
-class Make implements CommandInterface
+class MakeCommand implements CommandInterface
 {
-    /**
-     * Return information about the command.
-     */
-    public function getInfo(TalesBot $talesBot): array
+    public function getCommandBuilder(TalesBot $talesBot): CommandBuilder
     {
-        $info = [];
-        $info['name'] = 'make';
-        $info['description'] = 'Make good food and hear good stories.';
-        $info['commandBuilder'] =
-            CommandBuilder::new()
-                ->setName($info['name'])
-                ->setDescription($info['description'])
-                ->addOption(
-                    (new Option($talesBot))
-                        ->setName('recipe')
-                        ->setDescription('The recipe to prepare')
-                        ->setType(Option::STRING)
-                        ->setAutoComplete(true)
-                        ->setRequired(true)
-                );
-
-        return $info;
+        return CommandBuilder::new()
+            ->setName('make')
+            ->setDescription('Make good food and hear good stories.')
+            ->addOption(
+                (new Option($talesBot))
+                    ->setName('recipe')
+                    ->setDescription('The recipe to prepare')
+                    ->setType(Option::STRING)
+                    ->setAutoComplete(true)
+                    ->setRequired(true)
+            );
     }
 
-    /**
-     * Return the command's autocomplete suggestions.
-     */
     public function autocomplete(Interaction $interaction): ?array
     {
         /** @var TalesBot $talesBot */
         $talesBot = $interaction->getDiscord();
 
         $choices = [];
-        foreach ($talesBot->recipes as $recipe) {
-            $name = $recipe->getInfo($talesBot)['name'];
-            $choices[] = new Choice($talesBot, ['name' => $name, 'value' => $name]);
-        }
+        // @todo Redo once we figure out how to refactor getInfo().
+        //foreach ($talesBot->assets['TalesBot\Attributes\Recipe'] as $recipe) {
+        //    $name = $recipe->getInfo($talesBot)['name'];
+        //    $choices[] = new Choice($talesBot, ['name' => $name, 'value' => $name]);
+        //}
 
         return $choices;
     }
@@ -70,10 +59,13 @@ class Make implements CommandInterface
         $talesBot = $interaction->getDiscord();
 
         $value = '';
+        // @todo All of this gives a PHPStan warning.
         // @var \Discord\Helpers\CollectionInterface $options
         // $options = $interaction->data->options;
         // $option = $options->pull('recipe');
         // $value = $option->value;
+        // FIX HERE? https://github.com/discord-php/DiscordPHP/wiki/Option_commands
+        //   $content = $interaction->data->options->offsetGet('text')->value;
         if (isset($interaction->data->options['recipe'])) {
             $value = $interaction->data->options['recipe']['value'];
         }
