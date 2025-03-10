@@ -27,13 +27,16 @@
         }
     },
     "scripts": {
+        "bot": [
+            "@bot:start"
+        ],
         "bot:register": [
             "Composer\\Config::disableProcessTimeout",
-            "@php register.php"
+            "@php bin/talesbot --register"
         ],
         "bot:start": [
             "Composer\\Config::disableProcessTimeout",
-            "@php start.php"
+            "@php bin/talesbot"
         ],
         "qa": [
             "@qa:cs-check",
@@ -46,8 +49,9 @@
         "qa:phpstan": "vendor/bin/phpstan analyse --level 8 *.php bin contrib custom src"
     },
     "scripts-descriptions": {
-        "bot:register": "Register the Bento Tales bot commands",
-        "bot:start": "Start the Bento Tales bot",
+        "bot": "Start the bot",
+        "bot:register": "Register application commands",
+        "bot:start": "Start the bot",
         "qa": "Check code with all available tools",
         "qa:cs-check": "Check coding standards with PHP-CS-Fixer",
         "qa:cs-fix": "Fix coding standards with PHP-CS-Fixer",

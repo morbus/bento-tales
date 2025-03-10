@@ -7,12 +7,20 @@ based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Scaffolding
 
-- Move from custom hooks to event listeners and promises?
-  - Call $this->emit on the Discord instance to issue events.
-  - But how would we get code in, say, a Command to listen to them?
+- Database: GuildMemberStateEntity (from ye olde loidbot). Add datetime.
+- I'm not even sure I like the getInfo() stuff anymore.
+  - use attribute properties for this list?
+  - I feel like most anything in here would be better handled as an "unlock".
+  - Though, we'd still need the oneliner description for the CommandBuilder.
+  - Expand to a package.json-like something?
+    - "name": "loidbot",
+    - "version": "1.0.0",
+    - "author": "Morbus Iff <morbus@disobey.com>",
+    - "description": "Land of Idle Demons is an incremental and idle RPG bot for Discord servers.",
+    - "homepage": "https://github.com/morbus/loidbot#readme",
+- Add logging to each Command for easier debugging?
+- Does "Custom assets" in README need a rewrite?
 - Create a Character class for our visitors.
-- Add basic database support with PDO.
-- We need some sort of lookup list that handles case-insensitive searching.
 - /awaken
   - Db: Create user record and state.
   - Db: Set the next step of the tutorial.
@@ -26,24 +34,34 @@ based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   - Create new User($guild, $user) and ::getRecipes().
   - Check for isUnlocked() in autocomplete().
   - Replace autocomplete() with getRecipes().
-  - When there's more than 25 autocompletes, add substring searching.
 - /dream
   - ???
-- /view
-  - ???
+- /reflect
+  - Gets information about player, characters, recipes, etc.
 
 ## [0.2.0] - 2025-??-??
 
 ### Added
 
+- Support databases with the Doctrine ORM. Lots of refactoring for this:
+  - `TalesBot\Attributes\Entity` added to mark Doctrine ORM data entities.
+  - `bin/doctrine` added, though we're not really using it for anything yet.
+  - `loadAddonsIn()` has been refactored into much smaller parts. Start with
+    `loadAddons()` to see the new approach. Theoretically, this will make it
+    more flexible for far-future situations with third party custom classes.
+    Which will likely never happen, but I'm still going for a LORD IGM feel.
+
 ### Changed
 
-- Each individual command and recipe are now stored in their own directories.
-  This allows that directory to include other related classes and media, and
-  more adequately promotes the idea of packages/addons that can be dropped in
-  as a one-location-whole instead of spread throughout the codebase. For example,
+- Each command and recipe class are now part of a specific "Addons" directory.
+  This allows that directory to include other classes and media, and more
+  adequately promotes the idea of grouped resources that can be dropped in as
+  a one-location-whole instead of spread throughout the codebase. For example,
   instead of `Commands/Awaken.php` and `media/awaken/*.svg`, it's now
-  `Commands/Awaken/Awaken.php` and `Commands/Awaken/media/*.svg`.
+  `Addons/Awaken/AwakenCommand.php` and `Addons/Awaken/media/*.svg`.
+- `composer run qa` will check `contrib` and `custom` directories too.
+- More setup stuff moved from `TalesBot.php` to `register.php` and `start.php`.
+- `register.php` and `start.php` replaced with `bin/talesbot`.
 
 ## [0.1.0] - 2025-03-05
 

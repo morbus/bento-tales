@@ -29,7 +29,6 @@ $addonDirs = [
     __DIR__.'/../custom',
 ];
 
-
 // Setup the Doctrine ORM.
 $dsnParser = new DsnParser();
 $dsnParsed = $dsnParser->parse($_ENV['BOT_DATABASE_DSN']);

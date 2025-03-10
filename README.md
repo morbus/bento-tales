@@ -8,7 +8,7 @@ _A Discord bot to make good food and hear good stories._
 1. Run `composer install` to get all the PHP dependencies.
 2. Copy `.env.example` to `.env`, then edit `.env` with your details.
 3. To register the bot's application commands, run `composer bot:register`.
-4. To start the bot, run `composer bot:start`.
+4. To start the bot, run either `composer bot` or `composer bot:start`.
 
 ## OAuth2 URL Generator
 
@@ -30,7 +30,7 @@ The bot needs the following scopes and permissions:
 
 ## Developers
 
-1. Run `composer:qa` to lint everything.
+1. Run `composer qa` to lint everything.
 
 ### Custom assets
 
