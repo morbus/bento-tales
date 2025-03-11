@@ -92,7 +92,7 @@ class TalesBot extends Discord
         // Turn addon files into a class name, then check the attributes.
         // If a class uses the desired attributes, store it in $this->assets.
         foreach ($finder as $file) {
-            $this->getLogger()->debug('Checking if '.$file->getPathname().' is a requested TalesBot asset');
+            $this->getLogger()->debug('Checking if '.$file->getRealPath().' is a requested TalesBot asset');
             $assetClass = str_replace($this->addonDirs, '', $file->getPathname());
             $assetClass = str_replace(['/', '.php'], ['\\', ''], $assetClass);
 
@@ -101,7 +101,7 @@ class TalesBot extends Discord
             $assetAttributes = $reflector->getAttributes();
             foreach ($assetAttributes as $assetAttribute) {
                 if (\in_array($assetAttribute->getName(), $attributes, true)) {
-                    $this->getLogger()->info($file->getPathname().' uses attribute '.$assetAttribute->getName());
+                    $this->getLogger()->info($file->getRealPath().' uses attribute '.$assetAttribute->getName());
                     $this->assets[$assetAttribute->getName()][$assetClass] = null;
                 }
             }

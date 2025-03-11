@@ -7,9 +7,9 @@ based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Scaffolding
 
-- Database: GuildMemberStateEntity (from ye olde loidbot). Add datetime.
 - I'm not even sure I like the getInfo() stuff anymore.
   - use attribute properties for this list?
+  - name and description getters, but author in attribute? meh.
   - I feel like most anything in here would be better handled as an "unlock".
   - Though, we'd still need the oneliner description for the CommandBuilder.
   - Expand to a package.json-like something?
@@ -44,7 +44,7 @@ based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Added
 
 - Support databases with the Doctrine ORM. Lots of refactoring for this:
-  - `TalesBot\Attributes\Entity` added to mark Doctrine ORM data entities.
+  - `TalesBot\Attribute\Entity` added to mark Doctrine ORM data entities.
   - `bin/doctrine` added, though we're not really using it for anything yet.
   - `loadAddonsIn()` has been refactored into much smaller parts. Start with
     `loadAddons()` to see the new approach. Theoretically, this will make it
@@ -57,8 +57,8 @@ based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   This allows that directory to include other classes and media, and more
   adequately promotes the idea of grouped resources that can be dropped in as
   a one-location-whole instead of spread throughout the codebase. For example,
-  instead of `Commands/Awaken.php` and `media/awaken/*.svg`, it's now
-  `Addons/Awaken/AwakenCommand.php` and `Addons/Awaken/media/*.svg`.
+  instead of `Command/Awaken.php` and `media/awaken/*.svg`, it's now
+  `Addon/Awaken/AwakenCommand.php` and `Addon/Awaken/media/*.svg`.
 - `composer run qa` will check `contrib` and `custom` directories too.
 - More setup stuff moved from `TalesBot.php` to `register.php` and `start.php`.
 - `register.php` and `start.php` replaced with `bin/talesbot`.
