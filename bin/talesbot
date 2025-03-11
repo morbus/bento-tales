@@ -89,15 +89,14 @@ $talesBot->on('init', static function (TalesBot $talesBot) {
     // @see https://discord.com/developers/docs/interactions/application-commands
     // @see https://github.com/discord-php/DiscordPHP/wiki/Slash-Command
     if (isset($GLOBALS['options']['register'])) {
-        $talesBot->findAssets(['TalesBot\Attributes\Command']);
+        $talesBot->findAssets(['TalesBot\Attribute\Command']);
         $talesBot->loadCommandAssets();
         $pendingPromises = [];
 
-        /** @var \TalesBot\CommandInterface $command */
-        foreach ($talesBot->assets['TalesBot\Attributes\Command'] as $command) {
+        foreach (array_keys($talesBot->assets['TalesBot\Attribute\Command']) as $commandClass) {
             $pendingPromises[] = $talesBot->application->commands->save(
                 $talesBot->application->commands->create(
-                    $command->getCommandBuilder($talesBot)->toArray()
+                    (new $commandClass())->getCommandBuilder($talesBot)->toArray()
                 )
             );
         }

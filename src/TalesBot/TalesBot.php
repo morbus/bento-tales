@@ -22,7 +22,7 @@ class TalesBot extends Discord
     public array $addonDirs = [];
 
     /**
-     * Loaded assets sorted by their attribute.
+     * Known assets sorted by their attribute.
      *
      * @var array<0|class-string, array<0|class-string, ?object>>
      */
@@ -120,35 +120,32 @@ class TalesBot extends Discord
     }
 
     /**
-     * Load command assets and listen for their activation.
+     * Load command assets.
      */
     public function loadCommandAssets(): void
     {
         foreach (array_keys($this->assets['TalesBot\Attribute\Command']) as $commandClass) {
-            $this->assets['TalesBot\Attributes\Command'][$commandClass] = new $commandClass();
-            $command = $this->assets['TalesBot\Attributes\Command'][$commandClass];
-
-            // Listen for users activating this command.
+            $command = new $commandClass();
             $commandBuilder = $command->getCommandBuilder($this)->toArray();
             $this->listenCommand($commandBuilder['name'], $command->handle(...), $command->autocomplete(...));
-            $this->getLogger()->notice('Loaded command /'.$commandBuilder['name'].' from '.$commandClass);
+            $this->getLogger()->notice('Listening for command /'.$commandBuilder['name'].' from '.$commandClass);
         }
     }
 
     /**
-     * Load entity assets and maintain their database schema.
+     * Load entity assets.
      */
     public function loadEntityAssets(): void
     {
-        foreach (array_keys($this->assets['TalesBot\Attribute\Entity']) as $entityClass) {
-            $this->assets['TalesBot\Attributes\Entity'][$entityClass] = new $entityClass();
-            $this->getLogger()->notice('Loaded entity from '.$entityClass);
-        }
-
         // Update the database with any schema changes.
+        // FIXME: This will surely crash and burn one day.
         $schemaTool = new SchemaTool($this->entityManager);
         $classes = $this->entityManager->getMetadataFactory()->getAllMetadata();
         $schemaTool->updateSchema($classes);
+
+        foreach (array_keys($this->assets['TalesBot\Attribute\Entity']) as $entityClass) {
+            $this->getLogger()->notice('Updated entity schema from '.$entityClass);
+        }
     }
 
     /**
@@ -156,9 +153,9 @@ class TalesBot extends Discord
      */
     public function loadRecipeAssets(): void
     {
-        // Recipes are mostly just informational and have no logic.
+        // Preload recipes as they are queried a lot with various commands.
         foreach (array_keys($this->assets['TalesBot\Attribute\Recipe']) as $recipeClass) {
-            $this->assets['TalesBot\Attributes\Recipe'][$recipeClass] = new $recipeClass();
+            $this->assets['TalesBot\Attribute\Recipe'][$recipeClass] = new $recipeClass();
             $this->getLogger()->notice('Loaded recipe from '.$recipeClass);
         }
     }

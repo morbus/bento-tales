@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace TalesBot\Addon\Awaken;
 
+use DateTime;
 use Discord\Builders\CommandBuilder;
 use Discord\Builders\MessageBuilder;
 use Discord\Parts\Embed\Embed;
 use Discord\Parts\Interactions\Interaction;
 use TalesBot\Attribute\Command;
 use TalesBot\CommandInterface;
+use TalesBot\Entity\GuildMemberStateEntity;
 use TalesBot\TalesBot;
 use TalesBot\Utilities;
 
@@ -48,6 +50,18 @@ class AwakenCommand implements CommandInterface
         /** @var TalesBot $talesBot */
         $talesBot = $interaction->getDiscord();
         $utilities = new Utilities();
+
+        $guildMemberState = new GuildMemberStateEntity([
+            'guildId' => $interaction->guild_id,
+            'userId' => $interaction->user->id,
+            'type'  => 'awaken',
+            'subtype' => 'tutorial',
+            'subsubtype' => 'daysSeen',
+            'int' => 1,
+            'datetime' => new DateTime('now')
+        ]);
+        $talesBot->entityManager->persist($guildMemberState);
+        $talesBot->entityManager->flush();
 
         $embed = new Embed($talesBot);
         $embed
