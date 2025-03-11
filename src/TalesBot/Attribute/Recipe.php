@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace TalesBot\Attributes;
+namespace TalesBot\Attribute;
 
 /**
- * Declare a class as a command.
+ * Declare a class as a recipe.
  */
 #[\Attribute(\Attribute::TARGET_CLASS)]
-class Command
+class Recipe
 {
 }

@@ -80,9 +80,9 @@ class TalesBot extends Discord
     {
         // Default TalesBot attributes.
         $attributes = $attributes ?: [
-            'TalesBot\Attributes\Command',
-            'TalesBot\Attributes\Entity',
-            'TalesBot\Attributes\Recipe',
+            'TalesBot\Attribute\Command',
+            'TalesBot\Attribute\Entity',
+            'TalesBot\Attribute\Recipe',
         ];
 
         // Search addon dirs.
@@ -124,7 +124,7 @@ class TalesBot extends Discord
      */
     public function loadCommandAssets(): void
     {
-        foreach (array_keys($this->assets['TalesBot\Attributes\Command']) as $commandClass) {
+        foreach (array_keys($this->assets['TalesBot\Attribute\Command']) as $commandClass) {
             $this->assets['TalesBot\Attributes\Command'][$commandClass] = new $commandClass();
             $command = $this->assets['TalesBot\Attributes\Command'][$commandClass];
 
@@ -140,7 +140,7 @@ class TalesBot extends Discord
      */
     public function loadEntityAssets(): void
     {
-        foreach (array_keys($this->assets['TalesBot\Attributes\Entity']) as $entityClass) {
+        foreach (array_keys($this->assets['TalesBot\Attribute\Entity']) as $entityClass) {
             $this->assets['TalesBot\Attributes\Entity'][$entityClass] = new $entityClass();
             $this->getLogger()->notice('Loaded entity from '.$entityClass);
         }
@@ -157,7 +157,7 @@ class TalesBot extends Discord
     public function loadRecipeAssets(): void
     {
         // Recipes are mostly just informational and have no logic.
-        foreach (array_keys($this->assets['TalesBot\Attributes\Recipe']) as $recipeClass) {
+        foreach (array_keys($this->assets['TalesBot\Attribute\Recipe']) as $recipeClass) {
             $this->assets['TalesBot\Attributes\Recipe'][$recipeClass] = new $recipeClass();
             $this->getLogger()->notice('Loaded recipe from '.$recipeClass);
         }

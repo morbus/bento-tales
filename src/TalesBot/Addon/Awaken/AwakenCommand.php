@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace TalesBot\Addons\Awaken;
+namespace TalesBot\Addon\Awaken;
 
 use Discord\Builders\CommandBuilder;
 use Discord\Builders\MessageBuilder;
 use Discord\Parts\Embed\Embed;
 use Discord\Parts\Interactions\Interaction;
-use TalesBot\Attributes\Command;
+use TalesBot\Attribute\Command;
 use TalesBot\CommandInterface;
 use TalesBot\TalesBot;
 use TalesBot\Utilities;

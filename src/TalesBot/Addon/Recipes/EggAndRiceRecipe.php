@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace TalesBot\Addons\Recipes;
+namespace TalesBot\Addon\Recipes;
 
-use TalesBot\Attributes\Recipe;
+use TalesBot\Attribute\Recipe;
 use TalesBot\RecipeInterface;
 use TalesBot\TalesBot;
 

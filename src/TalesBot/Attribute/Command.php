@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace TalesBot\Attributes;
+namespace TalesBot\Attribute;
 
 /**
- * Declare a class as an entity.
+ * Declare a class as a command.
  */
 #[\Attribute(\Attribute::TARGET_CLASS)]
-class Entity
+class Command
 {
 }

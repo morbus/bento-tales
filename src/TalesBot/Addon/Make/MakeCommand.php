@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TalesBot\Addons\Make;
+namespace TalesBot\Addon\Make;
 
 use Discord\Builders\CommandBuilder;
 use Discord\Builders\MessageBuilder;
@@ -10,7 +10,7 @@ use Discord\Parts\Embed\Embed;
 use Discord\Parts\Interactions\Command\Choice;
 use Discord\Parts\Interactions\Command\Option;
 use Discord\Parts\Interactions\Interaction;
-use TalesBot\Attributes\Command;
+use TalesBot\Attribute\Command;
 use TalesBot\CommandInterface;
 use TalesBot\TalesBot;
 
@@ -42,10 +42,10 @@ class MakeCommand implements CommandInterface
 
         $choices = [];
         // @todo Redo once we figure out how to refactor getInfo().
-        //foreach ($talesBot->assets['TalesBot\Attributes\Recipe'] as $recipe) {
+        //  foreach ($talesBot->assets['TalesBot\Attributes\Recipe'] as $recipe) {
         //    $name = $recipe->getInfo($talesBot)['name'];
         //    $choices[] = new Choice($talesBot, ['name' => $name, 'value' => $name]);
-        //}
+        //  }
 
         return $choices;
     }
